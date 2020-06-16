@@ -4957,8 +4957,8 @@
     },
     "EquipmentGenerator/1.0.0": {
       "type": "project",
-      "path": "../EquipmentGenerator.csproj",
-      "msbuildProject": "../EquipmentGenerator.csproj"
+      "path": "../EquipmentGenerator/EquipmentGenerator.csproj",
+      "msbuildProject": "../EquipmentGenerator/EquipmentGenerator.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -4996,8 +4996,8 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
-            "E:\\work\\Git Equipment Generator\\EquipmentGenerator.csproj": {
-              "projectPath": "E:\\work\\Git Equipment Generator\\EquipmentGenerator.csproj"
+            "E:\\work\\Git Equipment Generator\\EquipmentGenerator\\EquipmentGenerator.csproj": {
+              "projectPath": "E:\\work\\Git Equipment Generator\\EquipmentGenerator\\EquipmentGenerator.csproj"
             }
           }
         }

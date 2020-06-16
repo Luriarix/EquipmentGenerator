@@ -12,7 +12,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using EquipmentDatabase;
 using EquipmentGenerator;
 
 namespace EquipmentGeneratorWPF
@@ -46,14 +45,18 @@ namespace EquipmentGeneratorWPF
 
         private void ItemAdd(object sender, RoutedEventArgs e)
         {
-            _test.AddItem(ItemName.Text);
+           // _test.AddItem(ItemName.Text);
+            _test.AddItem();
             FillList();
             ItemName.Clear();
         }
 
         private void Delete(object sender, RoutedEventArgs e)
         {
-            _test.RemoveItem();
+            if (ItemList.SelectedItem != null)
+                _test.RemoveItem();
+            else
+                _test.RemoveAllItems();
             FillList();
         }
 

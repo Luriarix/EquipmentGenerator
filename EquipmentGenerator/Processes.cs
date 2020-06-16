@@ -48,12 +48,13 @@ namespace EquipmentGenerator
         public void RemoveItem()
         {
             var db = new EquipmentContext();
-            if (ActiveItem != null)
-            {
                 db.Remove(ActiveItem.ItemId);
-            }
-            else
-                foreach(var item in db.Items)
+                db.SaveChanges();
+        }
+        public void RemoveAllItems()
+        {
+            var db = new EquipmentContext();
+            foreach (var item in db.Items)
                 db.Remove(item);
             db.SaveChanges();
         }
