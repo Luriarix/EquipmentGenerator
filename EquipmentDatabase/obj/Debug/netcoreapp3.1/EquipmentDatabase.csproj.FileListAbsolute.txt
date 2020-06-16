@@ -1,0 +1,12 @@
+E:\work\EquipmentDatabase\bin\Debug\netcoreapp3.1\EquipmentDatabase.deps.json
+E:\work\EquipmentDatabase\bin\Debug\netcoreapp3.1\EquipmentDatabase.dll
+E:\work\EquipmentDatabase\obj\Debug\netcoreapp3.1\EquipmentDatabase.csprojAssemblyReference.cache
+E:\work\EquipmentDatabase\obj\Debug\netcoreapp3.1\EquipmentDatabase.AssemblyInfoInputs.cache
+E:\work\EquipmentDatabase\obj\Debug\netcoreapp3.1\EquipmentDatabase.AssemblyInfo.cs
+E:\work\EquipmentDatabase\bin\Debug\netcoreapp3.1\EquipmentDatabase.runtimeconfig.json
+E:\work\EquipmentDatabase\bin\Debug\netcoreapp3.1\EquipmentDatabase.runtimeconfig.dev.json
+E:\work\EquipmentDatabase\bin\Debug\netcoreapp3.1\EquipmentDatabase.pdb
+E:\work\EquipmentDatabase\obj\Debug\netcoreapp3.1\EquipmentDatabase.dll
+E:\work\EquipmentDatabase\obj\Debug\netcoreapp3.1\EquipmentDatabase.pdb
+E:\work\EquipmentDatabase\obj\Debug\netcoreapp3.1\EquipmentDatabase.genruntimeconfig.cache
+E:\work\EquipmentDatabase\obj\Debug\netcoreapp3.1\EquipmentDatabase.csproj.CoreCompileInputs.cache

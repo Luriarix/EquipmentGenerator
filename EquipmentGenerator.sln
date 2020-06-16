@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EquipmentGenerator", "EquipmentGenerator.csproj", "{1C77CF80-E24D-451E-A25A-4DC022C1D386}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{E3BD5D6D-4FE5-407B-8FC0-B20A0D66AF60}"
+	ProjectSection(SolutionItems) = preProject
+		ReadMe.md = ReadMe.md
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EquipmentGeneratorWPF", "EquipmentGeneratorWPF\EquipmentGeneratorWPF.csproj", "{240F3AA3-C4E3-483E-A113-0BB3455273C8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EquipmentDatabase", "EquipmentDatabase\EquipmentDatabase.csproj", "{DC28132E-F306-473E-B932-2C706D9677D1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1C77CF80-E24D-451E-A25A-4DC022C1D386}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C77CF80-E24D-451E-A25A-4DC022C1D386}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C77CF80-E24D-451E-A25A-4DC022C1D386}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C77CF80-E24D-451E-A25A-4DC022C1D386}.Release|Any CPU.Build.0 = Release|Any CPU
+		{240F3AA3-C4E3-483E-A113-0BB3455273C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{240F3AA3-C4E3-483E-A113-0BB3455273C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{240F3AA3-C4E3-483E-A113-0BB3455273C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{240F3AA3-C4E3-483E-A113-0BB3455273C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC28132E-F306-473E-B932-2C706D9677D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC28132E-F306-473E-B932-2C706D9677D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC28132E-F306-473E-B932-2C706D9677D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC28132E-F306-473E-B932-2C706D9677D1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CAF1549E-0828-4BDE-9868-30FB79ABB437}
+	EndGlobalSection
+EndGlobal
