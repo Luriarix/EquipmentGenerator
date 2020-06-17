@@ -28,6 +28,12 @@
 
 ### Screenshot of the Kanban board
 #### Sprint 1
+##### Retrospective
+###### What went well
+- Organising the sprint
+- Setting up
+- 
+
 ##### Start
 <img src="Sprint 1 start.png" width = "242"/>
 
