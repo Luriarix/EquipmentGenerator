@@ -32,7 +32,8 @@
 ###### What went well
 - Organising the sprint
 - Setting up
-- 
+###### What went bad
+- Didn't manage to impliment basic Update function
 
 ##### Start
 <img src="Sprint 1 start.png" width = "242"/>
@@ -41,7 +42,12 @@
 <img src="Sprint 1 review.png" width = "300"/>
 
 #### End of Sprint 1 - Start of Sprint 2
+##### Retrospective
 <img src="Sprint 1 end - Sprint 2 Start.png" width = "300"/>
+
+#### Sprint 2
+##### Middle of sprint 2
+<img src="Sprint 2 Midway Through.png" width = "300"/>
 
 #### Sprint N
 <img src= width = "300"/>

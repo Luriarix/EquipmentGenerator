@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EquipmentDatabase.Migrations
 {
     [DbContext(typeof(EquipmentContext))]
-    [Migration("20200617154538_Database")]
+    [Migration("20200617191959_Database")]
     partial class Database
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -28,23 +28,10 @@ namespace EquipmentDatabase.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CommonItemRaretyRaretyId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ItemDurability")
-                        .HasColumnType("int");
-
                     b.Property<string>("ItemName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ItemTypeTypeId")
-                        .HasColumnType("int");
-
                     b.HasKey("ItemId");
-
-                    b.HasIndex("CommonItemRaretyRaretyId");
-
-                    b.HasIndex("ItemTypeTypeId");
 
                     b.ToTable("Items");
                 });
@@ -56,11 +43,29 @@ namespace EquipmentDatabase.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("ItemId")
+                    b.Property<int>("Attack")
                         .HasColumnType("int");
 
-                    b.Property<string>("Property")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Defence")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Dexterity")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Durability")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Inteligence")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ItemId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Strength")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UniqueId")
+                        .HasColumnType("int");
 
                     b.Property<int?>("UniqueItemUniqueId")
                         .HasColumnType("int");
@@ -81,13 +86,26 @@ namespace EquipmentDatabase.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("ItemId")
+                        .HasColumnType("int");
+
                     b.Property<int>("MaxPoints")
                         .HasColumnType("int");
 
                     b.Property<string>("Rarety")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("UniqueId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("UniqueItemUniqueId")
+                        .HasColumnType("int");
+
                     b.HasKey("RaretyId");
+
+                    b.HasIndex("ItemId");
+
+                    b.HasIndex("UniqueItemUniqueId");
 
                     b.ToTable("Rarety");
                 });
@@ -99,10 +117,23 @@ namespace EquipmentDatabase.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("ItemId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Type")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("UniqueId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("UniqueItemUniqueId")
+                        .HasColumnType("int");
+
                     b.HasKey("TypeId");
+
+                    b.HasIndex("ItemId");
+
+                    b.HasIndex("UniqueItemUniqueId");
 
                     b.ToTable("Type");
                 });
@@ -114,58 +145,51 @@ namespace EquipmentDatabase.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("UniqueItemDurability")
-                        .HasColumnType("int");
-
                     b.Property<string>("UniqueItemName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UniqueItemRaretyRaretyId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("UniqueItemTypeTypeId")
-                        .HasColumnType("int");
-
                     b.HasKey("UniqueId");
-
-                    b.HasIndex("UniqueItemRaretyRaretyId");
-
-                    b.HasIndex("UniqueItemTypeTypeId");
 
                     b.ToTable("UniqueItems");
                 });
 
-            modelBuilder.Entity("EquipmentDatabase.Item", b =>
-                {
-                    b.HasOne("EquipmentDatabase.Rareties", "CommonItemRarety")
-                        .WithMany()
-                        .HasForeignKey("CommonItemRaretyRaretyId");
-
-                    b.HasOne("EquipmentDatabase.Types", "ItemType")
-                        .WithMany()
-                        .HasForeignKey("ItemTypeTypeId");
-                });
-
             modelBuilder.Entity("EquipmentDatabase.Properties", b =>
                 {
-                    b.HasOne("EquipmentDatabase.Item", null)
-                        .WithMany("ItemProperty")
-                        .HasForeignKey("ItemId");
+                    b.HasOne("EquipmentDatabase.Item", "Item")
+                        .WithMany()
+                        .HasForeignKey("ItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("EquipmentDatabase.UniqueItem", null)
-                        .WithMany("UniqueItemProperty")
+                    b.HasOne("EquipmentDatabase.UniqueItem", "UniqueItem")
+                        .WithMany()
                         .HasForeignKey("UniqueItemUniqueId");
                 });
 
-            modelBuilder.Entity("EquipmentDatabase.UniqueItem", b =>
+            modelBuilder.Entity("EquipmentDatabase.Rareties", b =>
                 {
-                    b.HasOne("EquipmentDatabase.Rareties", "UniqueItemRarety")
+                    b.HasOne("EquipmentDatabase.Item", "Item")
                         .WithMany()
-                        .HasForeignKey("UniqueItemRaretyRaretyId");
+                        .HasForeignKey("ItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("EquipmentDatabase.Types", "UniqueItemType")
+                    b.HasOne("EquipmentDatabase.UniqueItem", "UniqueItem")
                         .WithMany()
-                        .HasForeignKey("UniqueItemTypeTypeId");
+                        .HasForeignKey("UniqueItemUniqueId");
+                });
+
+            modelBuilder.Entity("EquipmentDatabase.Types", b =>
+                {
+                    b.HasOne("EquipmentDatabase.Item", "Item")
+                        .WithMany()
+                        .HasForeignKey("ItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EquipmentDatabase.UniqueItem", "UniqueItem")
+                        .WithMany()
+                        .HasForeignKey("UniqueItemUniqueId");
                 });
 #pragma warning restore 612, 618
         }

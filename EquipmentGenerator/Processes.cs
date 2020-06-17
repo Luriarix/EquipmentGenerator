@@ -7,7 +7,7 @@ namespace EquipmentGenerator
 {
     public class Processes
     {
-        private int i = 0, j = 0;
+        private int i = 0;
 
         static void Main() { }
 
@@ -57,23 +57,47 @@ namespace EquipmentGenerator
         {
             var db = new EquipmentContext();
             db.Add(new Item { 
-                ItemId = j,
                 ItemName = name });
             db.SaveChanges();
-            j++;
         }
-        public void AddUniques(string name, int durability)
+        public void AddUniques(string name)
         {
             var db = new EquipmentContext();
             db.Add(new UniqueItem
             {
-                UniqueId = j,
-                UniqueItemName = name,
-                UniqueItemDurability = durability,
+                UniqueItemName = name          
             });
             db.SaveChanges();
-            j++;
         }
+        public void AddRareties(string name)
+        {
+            var db = new EquipmentContext();
+            db.Add(new Rareties
+            {
+                Rarety = name,
+               // MaxPoints = 
+            });
+            db.SaveChanges();
+        }
+        public void AddType(string name)
+        {
+            var db = new EquipmentContext();
+            db.Add(new Types
+            {
+                Type = name
+            });
+            db.SaveChanges();
+        }
+        public void AddProperty()
+        {
+            var db = new EquipmentContext();
+            db.Add(new Properties
+            {
+            });
+            db.SaveChanges();
+        }
+
+
 
 
 
@@ -97,12 +121,12 @@ namespace EquipmentGenerator
                 db.Remove(ActiveItem.ItemId);
                 db.SaveChanges();
         }
-        public void RemoveAllItems()
-        {
-            var db = new EquipmentContext();
-            foreach (var item in db.Items)
-                db.Remove(item);
-            db.SaveChanges();
-        }
+        //public void RemoveAllItems()
+        //{
+        //    var db = new EquipmentContext();
+        //    foreach (var item in db.Items)
+        //        db.Remove(item);
+        //    db.SaveChanges();
+        //}
     }
 }
