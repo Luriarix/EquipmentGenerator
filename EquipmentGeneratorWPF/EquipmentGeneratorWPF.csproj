@@ -7,6 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Window1.xaml.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Remove="Window1.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\EquipmentGenerator\EquipmentGenerator.csproj" />
   </ItemGroup>
 

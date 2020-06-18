@@ -17,6 +17,22 @@ namespace EquipmentGenerator
             ActiveItem = (Item)item;
         }
 
+        public Types ActiveType { get; set; }
+        public void SelectedType(object type)
+        {
+            ActiveType = (Types)type;
+        }
+
+        public Rareties ActiveRarety { get; set; }
+        public void SelectedRarety(object rarety)
+        {
+            ActiveRarety = (Rareties)rarety;
+        }
+
+
+
+
+
         public List<Item> ReadItemList()
         {
             var db = new EquipmentContext();
@@ -60,6 +76,7 @@ namespace EquipmentGenerator
                 ItemName = name });
             db.SaveChanges();
         }
+
         public void AddUniques(string name)
         {
             var db = new EquipmentContext();
@@ -68,6 +85,14 @@ namespace EquipmentGenerator
                 UniqueItemName = name          
             });
             db.SaveChanges();
+        }
+
+        public void AddRareties()
+        {
+            var db = new EquipmentContext();
+            db.Add(new Rareties { Rarety = $"test {i}", MaxPoints = i});
+            db.SaveChanges();
+            i += 1;
         }
         public void AddRareties(string name)
         {
@@ -79,6 +104,14 @@ namespace EquipmentGenerator
             });
             db.SaveChanges();
         }
+
+        public void AddType()
+        {
+            var db = new EquipmentContext();
+            db.Add(new Types { Type = $"test {i}" });
+            db.SaveChanges();
+            i += 1;
+        }
         public void AddType(string name)
         {
             var db = new EquipmentContext();
@@ -88,6 +121,8 @@ namespace EquipmentGenerator
             });
             db.SaveChanges();
         }
+
+
         public void AddProperty()
         {
             var db = new EquipmentContext();
@@ -98,18 +133,43 @@ namespace EquipmentGenerator
         }
 
 
-
-
-
-
-        public void Update(int id, string name)
+        public void UpdateItem(int id, string name)
         {
             var db = new EquipmentContext();
             ActiveItem = db.Items.Where(i => i.ItemId == id).First();
             ActiveItem.ItemName = name;
+            if (ActiveType != null)
+                ActiveItem.ItemType = ActiveType;
+            if (ActiveRarety != null)
+                ActiveItem.CommonItemRarety = ActiveRarety;
             db.SaveChanges();
         }
-
+        public void UpdateType(int id, string name)
+        {
+            var db = new EquipmentContext();
+            ActiveType = db.Type.Where(t => t.TypeId == id).First();
+            ActiveType.Type = name;
+            db.SaveChanges();
+        }
+        public void UpdateRarety(int id, string name)
+        {
+            var db = new EquipmentContext();
+            ActiveRarety = db.Rarety.Where(r => r.RaretyId == id).First();
+            ActiveRarety.Rarety = name;
+            db.SaveChanges();
+        }
+        public void UpdateProperties(int id)
+        {
+            var db = new EquipmentContext();
+            ActiveItem = db.Items.Where(i => i.ItemId == id).First();
+            ActiveItem.ItemProperty.Durability = i;
+            ActiveItem.ItemProperty.Attack = i;
+            ActiveItem.ItemProperty.Defence = i;
+            ActiveItem.ItemProperty.Strength = i;
+            ActiveItem.ItemProperty.Dexterity = i;
+            ActiveItem.ItemProperty.Inteligence = i;
+            db.SaveChanges();
+        }
 
 
 
@@ -118,15 +178,21 @@ namespace EquipmentGenerator
         public void RemoveItem()
         {
             var db = new EquipmentContext();
-                db.Remove(ActiveItem.ItemId);
+                db.Remove(ActiveItem);
                 db.SaveChanges();
         }
-        //public void RemoveAllItems()
-        //{
-        //    var db = new EquipmentContext();
-        //    foreach (var item in db.Items)
-        //        db.Remove(item);
-        //    db.SaveChanges();
-        //}
+        public void RemoveType()
+        {
+            var db = new EquipmentContext();
+            db.Remove(ActiveType);
+            db.SaveChanges();
+        }
+        public void RemoveRarety()
+        {
+            var db = new EquipmentContext();
+            db.Remove(ActiveRarety);
+            db.SaveChanges();
+        }
+
     }
 }

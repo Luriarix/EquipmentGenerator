@@ -5,14 +5,139 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EquipmentGeneratorWPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Background="ForestGreen">
+        Title="MainWindow" Height="450" Width="522" Background="ForestGreen">
     <Grid>
-        <ListBox x:Name="ItemList" Margin="10,10,677,217"/>
-        <Button x:Name="AddButton" Content="Add Item" HorizontalAlignment="Left" Margin="10,274,0,0" VerticalAlignment="Top" Height="46" Width="113" Click="ItemAdd"/>
-        <Button x:Name="DeleteButton" Content="Delete Item" HorizontalAlignment="Left" Margin="10,325,0,0" VerticalAlignment="Top" Height="47" Width="113" Click="Delete"/>
-        <Button x:Name="UpdateButton" Content="Update Item" HorizontalAlignment="Left" Margin="10,377,0,0" VerticalAlignment="Top" Height="47" Width="113" Click="Update"/>
-        <TextBox x:Name="ItemName" TextWrapping="Wrap" Margin="10,222,677,165"/>
+        <Grid>
 
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100*" />
+                <ColumnDefinition Width="100*" />
+                <ColumnDefinition Width="100*"/>
+                <ColumnDefinition Width="100*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0" Margin="0,0,5,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="31*" />
+                    <RowDefinition Height="187*"/>
+                    <RowDefinition Height="24*"/>
+                    <RowDefinition Height="33*"/>
+                    <RowDefinition Height="47*"/>
+                    <RowDefinition Height="51*"/>
+                    <RowDefinition Height="61*"/>
+                </Grid.RowDefinitions>
+                <Label x:Name="Item" Content="Item" Grid.Column="0" Grid.Row="0" HorizontalContentAlignment="Center" FontWeight="Bold" Background="GreenYellow" Margin="3,3,0,0"/>
+                <ListBox x:Name="ItemList" Grid.Column="0" Grid.Row="1" Margin="3,0,0,0" SelectionChanged="ItemList_SelectItem"/>
+                <Label x:Name="NewItem" Content="New Item" Grid.Column="0" Grid.Row="2" HorizontalContentAlignment="Center" FontWeight="Bold" Background="GreenYellow" Margin="3,0,0,0"/>
+                <TextBox x:Name="ItemName" TextWrapping="Wrap" Grid.Column="0" Grid.Row="3" Margin="3,0,0,0"/>
+                <Button x:Name="AddButton" Content="Add Item" Grid.Column="0" Grid.Row="4"  Click="ItemAdd" Margin="3,0,0,0"/>
+                <Button x:Name="DeleteButton" Content="Delete Item" Grid.Column="0" Grid.Row="5" Click="DeleteItem" Margin="3,0,0,0"/>
+                <Button x:Name="UpdateButton" Content="Update Item" Grid.Column="0" Grid.Row="6" Click="UpdateItem" Margin="3,0,0,0"/>
+            </Grid>
+            <Grid Grid.Column="1" Margin="0,0,5,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="31*" />
+                    <RowDefinition Height="187*"/>
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="191*"/>
+                </Grid.RowDefinitions>
 
+                <!-- Item Type Commands -->
+                <Label x:Name="Type" Content="Types" Grid.Row="0" HorizontalContentAlignment="Center" FontWeight="Bold" Background="GreenYellow" Margin="0,3,0,0"/>
+                <ListBox x:Name="TypeList" Grid.Row="1" SelectionChanged="TypeList_SelectType"/>
+
+                <!-- Item Rarety Commands -->
+                <Label x:Name="Rarety" Content="Rarities" Grid.Row="2" HorizontalContentAlignment="Center" FontWeight="Bold" Background="GreenYellow"/>
+                <ListBox x:Name="RaretyList" Grid.Row="3" SelectionChanged="RaretyList_SelectRarety"/>
+            </Grid>
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="31*"/>
+                    <RowDefinition Height="30*"/>
+                    <RowDefinition Height="53*"/>
+                    <RowDefinition Height="52*"/>
+                    <RowDefinition Height="53*"/>
+                    <RowDefinition Height="25*"/>
+                    <RowDefinition Height="33*"/>
+                    <RowDefinition Height="47*"/>
+                    <RowDefinition Height="51*"/>
+                    <RowDefinition Height="61*"/>
+                </Grid.RowDefinitions>
+                <Label x:Name="NewType" Content="New Type" Grid.Row="0" HorizontalContentAlignment="Center" FontWeight="Bold" Background="GreenYellow" Margin="0,3,0,0"/>
+                <TextBox x:Name="TypeName" TextWrapping="Wrap" Grid.Row="1"/>
+                <Button x:Name="AddTypeButton" Content="Add Type" Grid.Row="2" Click="AddType"/>
+                <Button x:Name="DeleteTypeButton" Content="Delete Type" Grid.Row="3" Click="DeleteType"/>
+                <Button x:Name="UpdateTypeButton" Content="Update Type" Grid.Row="4" Click="UpdateType"/>
+
+                <Button x:Name="AddRaretyButton" Content="Add Rarity" Grid.Row="7" Click="AddRarety"/>
+                <Button x:Name="DeleteRaretyButton" Content="Delete Rarity" Grid.Row="8" Click="DeleteRarety"/>
+                <Button x:Name="UpdateRaretyButton" Content="Update Rarity" Grid.Row="9" Click="UpdateRarety"/>
+
+                <Grid Grid.Row="6">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="80*"/>
+                        <ColumnDefinition Width="50*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="RaretyName" TextWrapping="Wrap" Grid.Column="0" />
+                    <TextBox x:Name="RaretyMax" TextWrapping="Wrap" Grid.Column="1" />
+                </Grid>
+
+                <Grid Grid.Row="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="80*"/>
+                        <ColumnDefinition Width="50*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label x:Name="NewRarety" Content="New Rarity" Grid.Column="0" HorizontalContentAlignment="Center" FontWeight="Bold" Background="GreenYellow"/>
+                    <Label x:Name="MaxRarety" Content="Max" Grid.Column="1" HorizontalContentAlignment="Center" FontWeight="Bold" Background="LawnGreen"/>
+                </Grid>
+
+            </Grid>
+            <Grid Grid.Column="3">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40*"/>
+                    <RowDefinition Height="40*"/>
+                    <RowDefinition Height="40*"/>
+                    <RowDefinition Height="40*"/>
+                    <RowDefinition Height="40*"/>
+                    <RowDefinition Height="40*"/>
+                    <RowDefinition Height="40*"/>
+                    <RowDefinition Height="40*"/>
+                    <RowDefinition Height="40*"/>
+                    <RowDefinition Height="40*"/>
+                    <RowDefinition Height="40*"/>
+                    <RowDefinition Height="40*"/>
+                    <RowDefinition Height="40*"/>
+                </Grid.RowDefinitions>
+                <Label x:Name="Durability" Content="Durability" Grid.Row="0" HorizontalContentAlignment="Center" FontWeight="Bold" Background="GreenYellow" Margin="5,3,0,0"/>
+                <TextBox x:Name="DurabilityAmount" TextWrapping="Wrap" Grid.Row="1" Margin="5,0,0,0" />
+
+                <Label x:Name="Attack" Content="Attack" Grid.Row="2" HorizontalContentAlignment="Center" FontWeight="Bold" Background="GreenYellow" Margin="5,0,0,0" />
+                <TextBox x:Name="AttackAmount" TextWrapping="Wrap" Grid.Row="3" Margin="5,0,0,0"/>
+
+                <Label x:Name="Defence" Content="Defence" Grid.Row="4" HorizontalContentAlignment="Center" FontWeight="Bold" Background="GreenYellow" Margin="5,0,0,0" />
+                <TextBox x:Name="DefenceAmount" TextWrapping="Wrap" Grid.Row="5" Margin="5,0,0,0"/>
+
+                <Label x:Name="Strength" Content="Strength" Grid.Row="6" HorizontalContentAlignment="Center" FontWeight="Bold" Background="GreenYellow" Margin="5,0,0,0"  />
+                <TextBox x:Name="StrengthAmount" TextWrapping="Wrap" Grid.Row="7" Margin="5,0,0,0" />
+
+                <Label x:Name="Dexterity" Content="Dexterity" Grid.Row="8" HorizontalContentAlignment="Center" FontWeight="Bold" Background="GreenYellow" Margin="5,0,0,0" />
+                <TextBox x:Name="DexterityAmount" TextWrapping="Wrap" Grid.Row="9" Margin="5,0,0,0"/>
+
+                <Label x:Name="Intelligence" Content="Intelligence" Grid.Row="10" HorizontalContentAlignment="Center" FontWeight="Bold" Background="GreenYellow" Margin="5,0,0,0" />
+                <TextBox x:Name="IntelligenceAmount" TextWrapping="Wrap" Grid.Row="11" Margin="5,0,0,0"/>
+
+                <Grid Grid.Row="12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="AddPropertiesButton" Content="Add" Grid.Column="0" Click="AddPropertiesButton_Click" Margin="5,0,0,0"/>
+                    <Button x:Name="UpdatePropertiesButton" Content="Update"  Click="UpdatePropertiesButton_Click" Grid.Column="1"/>
+                </Grid>
+
+            </Grid>
+        </Grid>
     </Grid>
 </Window>

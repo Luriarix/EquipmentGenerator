@@ -8,7 +8,7 @@ namespace EquipmentDatabase
     {
         public override string ToString()
         {
-            return $"{RaretyId} {Rarety}";
+            return $"{RaretyId} {Rarety} Max Ponits: {MaxPoints}";
         }
     }
 }

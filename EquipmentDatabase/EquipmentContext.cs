@@ -55,7 +55,6 @@ namespace EquipmentDatabase
         public int PropertyId { get; set; }
         public Properties UniqueItemProperty { get; set; }
     }
-
     public partial class Rareties
     {
         [Key]
