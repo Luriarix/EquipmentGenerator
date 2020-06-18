@@ -1,4 +1,5 @@
 ﻿ using EquipmentDatabase;
+using System;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Linq;
@@ -7,7 +8,7 @@ namespace EquipmentGenerator
 {
     public class Processes
     {
-        private int i = 0;
+        private int _i = 0;
 
         static void Main() { }
 
@@ -22,14 +23,43 @@ namespace EquipmentGenerator
         {
             ActiveType = (Types)type;
         }
+        public void SelectedType(int id)
+        {
+            var db = new EquipmentContext();
+            foreach (var t in db.Type)
+            {
+                if (t.TypeId == id)
+                    ActiveType = t;
+            }
+        }
+
 
         public Rareties ActiveRarety { get; set; }
         public void SelectedRarety(object rarety)
         {
             ActiveRarety = (Rareties)rarety;
         }
+        public void SelectedRarety(int id)
+        {
+            var db = new EquipmentContext();
+            foreach (var r in db.Rarety)
+            {
+                if (r.RaretyId == id)
+                    ActiveRarety = r;
+            }
+        }
 
 
+        public Properties ActiveProperties { get; set; }
+        public void SelectedProperties (int id)
+        {
+            var db = new EquipmentContext();
+            foreach (var p in db.Properties)
+            {
+                if (p.PropertyId == id)
+                    ActiveProperties = p;
+            }
+        }
 
 
 
@@ -65,9 +95,9 @@ namespace EquipmentGenerator
         public void AddItem()
         {
             var db = new EquipmentContext();
-            db.Add(new Item { ItemName = $"test {i}" });
+            db.Add(new Item { ItemName = $"test {_i}" });
             db.SaveChanges();
-            i += 1;
+            _i += 1;
         }
         public void AddItem(string name)
         {
@@ -90,17 +120,17 @@ namespace EquipmentGenerator
         public void AddRareties()
         {
             var db = new EquipmentContext();
-            db.Add(new Rareties { Rarety = $"test {i}", MaxPoints = i});
+            db.Add(new Rareties { Rarety = $"test {_i}", MaxPoints = _i});
             db.SaveChanges();
-            i += 1;
+            _i += 1;
         }
-        public void AddRareties(string name)
+        public void AddRareties(string name, int max)
         {
             var db = new EquipmentContext();
             db.Add(new Rareties
             {
                 Rarety = name,
-               // MaxPoints = 
+                MaxPoints = max
             });
             db.SaveChanges();
         }
@@ -108,9 +138,9 @@ namespace EquipmentGenerator
         public void AddType()
         {
             var db = new EquipmentContext();
-            db.Add(new Types { Type = $"test {i}" });
+            db.Add(new Types { Type = $"test {_i}" });
             db.SaveChanges();
-            i += 1;
+            _i += 1;
         }
         public void AddType(string name)
         {
@@ -122,12 +152,18 @@ namespace EquipmentGenerator
             db.SaveChanges();
         }
 
-
-        public void AddProperty()
+        public void AddProperties(int id,int dur, int att, int def, int str, int dex, int inte)
         {
             var db = new EquipmentContext();
             db.Add(new Properties
             {
+                PropertyId = id,
+                Durability = dur,
+                Attack = att,
+                Defence = def,
+                Strength = str,
+                Dexterity = dex,
+                Inteligence = inte
             });
             db.SaveChanges();
         }
@@ -139,9 +175,15 @@ namespace EquipmentGenerator
             ActiveItem = db.Items.Where(i => i.ItemId == id).First();
             ActiveItem.ItemName = name;
             if (ActiveType != null)
+            {
                 ActiveItem.ItemType = ActiveType;
+                ActiveItem.TypeId = ActiveType.TypeId;
+            }
             if (ActiveRarety != null)
+            {
                 ActiveItem.CommonItemRarety = ActiveRarety;
+                ActiveItem.RaretyId = ActiveRarety.RaretyId; 
+            }
             db.SaveChanges();
         }
         public void UpdateType(int id, string name)
@@ -151,23 +193,34 @@ namespace EquipmentGenerator
             ActiveType.Type = name;
             db.SaveChanges();
         }
-        public void UpdateRarety(int id, string name)
+        public void UpdateRarety(int id, string name, int max)
         {
             var db = new EquipmentContext();
             ActiveRarety = db.Rarety.Where(r => r.RaretyId == id).First();
             ActiveRarety.Rarety = name;
+            ActiveRarety.MaxPoints = max;
             db.SaveChanges();
         }
-        public void UpdateProperties(int id)
+        public void UpdateProperties(int id, int dur, int att, int def, int str, int dex, int inte)
         {
             var db = new EquipmentContext();
-            ActiveItem = db.Items.Where(i => i.ItemId == id).First();
-            ActiveItem.ItemProperty.Durability = i;
-            ActiveItem.ItemProperty.Attack = i;
-            ActiveItem.ItemProperty.Defence = i;
-            ActiveItem.ItemProperty.Strength = i;
-            ActiveItem.ItemProperty.Dexterity = i;
-            ActiveItem.ItemProperty.Inteligence = i;
+            if (ActiveItem.PropertyId != 0)
+            {
+                ActiveProperties = db.Properties.Where(i => i.PropertyId == id).First();
+                ActiveProperties.Durability = dur;
+                ActiveProperties.Attack = att;
+                ActiveProperties.Defence = def;
+                ActiveProperties.Strength = str;
+                ActiveProperties.Dexterity = dex;
+                ActiveProperties.Inteligence = inte;
+            }
+            else
+            {
+                AddProperties(ActiveItem.ItemId, dur, att, def, str, dex, inte);
+                ActiveItem.PropertyId = ActiveItem.ItemId;
+            }
+
+
             db.SaveChanges();
         }
 

@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using EquipmentGenerator;
+using System.Text.RegularExpressions;
 
 namespace EquipmentGeneratorWPF
 {
@@ -54,7 +55,7 @@ namespace EquipmentGeneratorWPF
 
         private void ItemAdd(object sender, RoutedEventArgs e)
         {
-            if (ItemName.Text != null)
+            if (ItemName.Text != "")
                 _process.AddItem(ItemName.Text);
             else
                 _process.AddItem();
@@ -71,7 +72,22 @@ namespace EquipmentGeneratorWPF
 
         private void UpdateItem(object sender, RoutedEventArgs e)
         {
-            _process.UpdateItem(ItemList.SelectedIndex , ItemName.Text);
+            if (ItemName.Text != "")
+            {
+                if (ItemName.Text != _process.ActiveItem.ItemName)
+                {
+                    _process.UpdateItem(_process.ActiveItem.ItemId, ItemName.Text);
+                    FillItemList();
+                    ItemName.Clear();
+                }
+                else
+                {
+                    if (_process.ActiveItem.ItemType != _process.ActiveType || _process.ActiveItem.CommonItemRarety != _process.ActiveRarety)
+                    {
+                        _process.UpdateItem(_process.ActiveItem.ItemId, _process.ActiveItem.ItemName);
+                    }
+                }
+            }
             FillItemList();
         }
 
@@ -80,15 +96,36 @@ namespace EquipmentGeneratorWPF
             if (ItemList.SelectedItem != null)
             {
                 _process.SelectedItem(ItemList.SelectedItem);
-                TypeList.SelectedItem = _process.ActiveItem.ItemType;
-                RaretyList.SelectedItem = _process.ActiveItem.CommonItemRarety;
+                _process.SelectedType(_process.ActiveItem.ItemId);
+                _process.SelectedRarety(_process.ActiveItem.RaretyId);
+                ItemName.Text = _process.ActiveItem.ItemName;
+
+                if (_process.ActiveItem.RaretyId != 0)
+                {
+                    _process.SelectedRarety(_process.ActiveItem.RaretyId);
+                    RaretyName.Text = _process.ActiveRarety.Rarety;
+                    RaretyMax.Text = _process.ActiveRarety.MaxPoints.ToString();
+                }
+                else
+                {
+                    RaretyName.Clear();
+                    RaretyMax.Clear();
+                }
+
+                if (_process.ActiveItem.TypeId != 0)
+                {
+                    _process.SelectedType(_process.ActiveItem.TypeId);
+                    TypeName.Text = _process.ActiveType.Type;
+                }
+                else
+                    TypeName.Clear();
             }
         }
 
 
         private void AddType(object sender, RoutedEventArgs e)
         {
-            if (TypeName.Text != null)
+            if (TypeName.Text != "")
                 _process.AddType(TypeName.Text);
             else
                 _process.AddType();
@@ -105,7 +142,10 @@ namespace EquipmentGeneratorWPF
 
         private void UpdateType(object sender, RoutedEventArgs e)
         {
-
+            if (TypeName.Text != "")
+            {
+                _process.UpdateType(_process.ActiveType.TypeId, TypeName.Text);
+            }
         }
 
         private void TypeList_SelectType(object sender, SelectionChangedEventArgs e)
@@ -122,12 +162,15 @@ namespace EquipmentGeneratorWPF
 
         private void AddRarety(object sender, RoutedEventArgs e)
         {
-            if (RaretyName.Text != null)
-                _process.AddRareties(RaretyName.Text);
+            if (RaretyName.Text != "" && RaretyMax.Text != "")
+                _process.AddRareties(RaretyName.Text, Int32.Parse(RaretyMax.Text));
+            else if (RaretyName.Text != "")
+                _process.AddRareties(RaretyName.Text, 0);
             else
                 _process.AddRareties();
             FillRaretyList();
             RaretyName.Clear();
+            RaretyMax.Clear();
         }
 
         private void DeleteRarety(object sender, RoutedEventArgs e)
@@ -139,7 +182,10 @@ namespace EquipmentGeneratorWPF
 
         private void UpdateRarety(object sender, RoutedEventArgs e)
         {
-
+            if (RaretyName.Text != "" && RaretyMax.Text != "")
+                _process.UpdateRarety(_process.ActiveRarety.RaretyId, RaretyName.Text, Int32.Parse(RaretyMax.Text));
+            else if (RaretyName.Text != "")
+                _process.UpdateRarety(_process.ActiveRarety.RaretyId, RaretyName.Text, 0);
         }
 
         private void RaretyList_SelectRarety(object sender, SelectionChangedEventArgs e)
@@ -154,13 +200,14 @@ namespace EquipmentGeneratorWPF
 
         private void AddPropertiesButton_Click(object sender, RoutedEventArgs e)
         {
-
-
+            _process.UpdateProperties(_process.ActiveItem.PropertyId, Int32.Parse(DurabilityAmount.Text), Int32.Parse(AttackAmount.Text), Int32.Parse(DefenceAmount.Text), Int32.Parse(StrengthAmount.Text), Int32.Parse(DexterityAmount.Text), Int32.Parse(IntelligenceAmount.Text));
+            FillItemList();
         }
 
-        private void UpdatePropertiesButton_Click(object sender, RoutedEventArgs e)
+        private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
         {
-
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
         }
     }
 }

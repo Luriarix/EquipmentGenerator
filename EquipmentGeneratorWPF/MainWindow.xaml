@@ -81,7 +81,7 @@
                         <ColumnDefinition Width="50*"/>
                     </Grid.ColumnDefinitions>
                     <TextBox x:Name="RaretyName" TextWrapping="Wrap" Grid.Column="0" />
-                    <TextBox x:Name="RaretyMax" TextWrapping="Wrap" Grid.Column="1" />
+                    <TextBox x:Name="RaretyMax" TextWrapping="Wrap" Grid.Column="1" PreviewTextInput="NumberValidationTextBox"/>
                 </Grid>
 
                 <Grid Grid.Row="5">
@@ -89,7 +89,7 @@
                         <ColumnDefinition Width="80*"/>
                         <ColumnDefinition Width="50*"/>
                     </Grid.ColumnDefinitions>
-                    <Label x:Name="NewRarety" Content="New Rarity" Grid.Column="0" HorizontalContentAlignment="Center" FontWeight="Bold" Background="GreenYellow"/>
+                    <Label x:Name="NewRarety" Content="New Rarity" Grid.Column="0" HorizontalContentAlignment="Center" FontWeight="Bold" Background="GreenYellow" />
                     <Label x:Name="MaxRarety" Content="Max" Grid.Column="1" HorizontalContentAlignment="Center" FontWeight="Bold" Background="LawnGreen"/>
                 </Grid>
 
@@ -111,31 +111,24 @@
                     <RowDefinition Height="40*"/>
                 </Grid.RowDefinitions>
                 <Label x:Name="Durability" Content="Durability" Grid.Row="0" HorizontalContentAlignment="Center" FontWeight="Bold" Background="GreenYellow" Margin="5,3,0,0"/>
-                <TextBox x:Name="DurabilityAmount" TextWrapping="Wrap" Grid.Row="1" Margin="5,0,0,0" />
+                <TextBox x:Name="DurabilityAmount" TextWrapping="Wrap" Grid.Row="1" Margin="5,0,0,0" PreviewTextInput="NumberValidationTextBox" />
 
                 <Label x:Name="Attack" Content="Attack" Grid.Row="2" HorizontalContentAlignment="Center" FontWeight="Bold" Background="GreenYellow" Margin="5,0,0,0" />
-                <TextBox x:Name="AttackAmount" TextWrapping="Wrap" Grid.Row="3" Margin="5,0,0,0"/>
+                <TextBox x:Name="AttackAmount" TextWrapping="Wrap" Grid.Row="3" Margin="5,0,0,0" PreviewTextInput="NumberValidationTextBox"/>
 
                 <Label x:Name="Defence" Content="Defence" Grid.Row="4" HorizontalContentAlignment="Center" FontWeight="Bold" Background="GreenYellow" Margin="5,0,0,0" />
-                <TextBox x:Name="DefenceAmount" TextWrapping="Wrap" Grid.Row="5" Margin="5,0,0,0"/>
+                <TextBox x:Name="DefenceAmount" TextWrapping="Wrap" Grid.Row="5" Margin="5,0,0,0" PreviewTextInput="NumberValidationTextBox"/>
 
                 <Label x:Name="Strength" Content="Strength" Grid.Row="6" HorizontalContentAlignment="Center" FontWeight="Bold" Background="GreenYellow" Margin="5,0,0,0"  />
-                <TextBox x:Name="StrengthAmount" TextWrapping="Wrap" Grid.Row="7" Margin="5,0,0,0" />
+                <TextBox x:Name="StrengthAmount" TextWrapping="Wrap" Grid.Row="7" Margin="5,0,0,0" PreviewTextInput="NumberValidationTextBox"/>
 
                 <Label x:Name="Dexterity" Content="Dexterity" Grid.Row="8" HorizontalContentAlignment="Center" FontWeight="Bold" Background="GreenYellow" Margin="5,0,0,0" />
-                <TextBox x:Name="DexterityAmount" TextWrapping="Wrap" Grid.Row="9" Margin="5,0,0,0"/>
+                <TextBox x:Name="DexterityAmount" TextWrapping="Wrap" Grid.Row="9" Margin="5,0,0,0" PreviewTextInput="NumberValidationTextBox"/>
 
                 <Label x:Name="Intelligence" Content="Intelligence" Grid.Row="10" HorizontalContentAlignment="Center" FontWeight="Bold" Background="GreenYellow" Margin="5,0,0,0" />
-                <TextBox x:Name="IntelligenceAmount" TextWrapping="Wrap" Grid.Row="11" Margin="5,0,0,0"/>
+                <TextBox x:Name="IntelligenceAmount" TextWrapping="Wrap" Grid.Row="11" Margin="5,0,0,0" PreviewTextInput="NumberValidationTextBox"/>
 
-                <Grid Grid.Row="12">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <Button x:Name="AddPropertiesButton" Content="Add" Grid.Column="0" Click="AddPropertiesButton_Click" Margin="5,0,0,0"/>
-                    <Button x:Name="UpdatePropertiesButton" Content="Update"  Click="UpdatePropertiesButton_Click" Grid.Column="1"/>
-                </Grid>
+                <Button x:Name="AddPropertiesButton" Content="Add/Update" Grid.Row="12" Click="AddPropertiesButton_Click" Margin="5,0,0,0"/>
 
             </Grid>
         </Grid>

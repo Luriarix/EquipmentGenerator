@@ -8,7 +8,7 @@ namespace EquipmentDatabase
     {
         public override string ToString()
         {
-            return $"{ItemId} {ItemName}";
+            return $"{ItemName}";
         }
     }
 }
