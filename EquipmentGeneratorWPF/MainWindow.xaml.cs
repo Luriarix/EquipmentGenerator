@@ -176,6 +176,7 @@ namespace EquipmentGeneratorWPF
                 _process.SelectedType(TypeList.SelectedItem);
                 if (_process.ActiveItem.ItemProperty != null)
                     FillProperties();
+                TypeName.Text = _process.ActiveType.Type;
             }
         }
 
@@ -214,6 +215,8 @@ namespace EquipmentGeneratorWPF
             if (RaretyList.SelectedItem != null)
             {
                 _process.SelectedRarety(RaretyList.SelectedItem);
+                RaretyName.Text = _process.ActiveRarety.Rarety;
+                RaretyMax.Text = _process.ActiveRarety.MaxPoints.ToString();
             }
         }
 
