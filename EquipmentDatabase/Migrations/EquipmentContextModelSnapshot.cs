@@ -32,9 +32,6 @@ namespace EquipmentDatabase.Migrations
                     b.Property<string>("ItemName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ItemPropertyPropertyId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("ItemTypeTypeId")
                         .HasColumnType("int");
 
@@ -50,8 +47,6 @@ namespace EquipmentDatabase.Migrations
                     b.HasKey("ItemId");
 
                     b.HasIndex("CommonItemRaretyRaretyId");
-
-                    b.HasIndex("ItemPropertyPropertyId");
 
                     b.HasIndex("ItemTypeTypeId");
 
@@ -80,10 +75,16 @@ namespace EquipmentDatabase.Migrations
                     b.Property<int>("Inteligence")
                         .HasColumnType("int");
 
+                    b.Property<int>("ItemId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Strength")
                         .HasColumnType("int");
 
                     b.HasKey("PropertyId");
+
+                    b.HasIndex("ItemId")
+                        .IsUnique();
 
                     b.ToTable("Properties");
                 });
@@ -166,13 +167,18 @@ namespace EquipmentDatabase.Migrations
                         .WithMany()
                         .HasForeignKey("CommonItemRaretyRaretyId");
 
-                    b.HasOne("EquipmentDatabase.Properties", "ItemProperty")
-                        .WithMany()
-                        .HasForeignKey("ItemPropertyPropertyId");
-
                     b.HasOne("EquipmentDatabase.Types", "ItemType")
                         .WithMany()
                         .HasForeignKey("ItemTypeTypeId");
+                });
+
+            modelBuilder.Entity("EquipmentDatabase.Properties", b =>
+                {
+                    b.HasOne("EquipmentDatabase.Item", null)
+                        .WithOne("ItemProperty")
+                        .HasForeignKey("EquipmentDatabase.Properties", "ItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("EquipmentDatabase.UniqueItem", b =>

@@ -98,6 +98,7 @@ namespace EquipmentGeneratorWPF
                 _process.SelectedItem(ItemList.SelectedItem);
                 _process.SelectedType(_process.ActiveItem.ItemId);
                 _process.SelectedRarety(_process.ActiveItem.RaretyId);
+                _process.SelectedProperties(_process.ActiveItem.PropertyId);
                 ItemName.Text = _process.ActiveItem.ItemName;
 
                 if (_process.ActiveItem.RaretyId != 0)
@@ -119,6 +120,26 @@ namespace EquipmentGeneratorWPF
                 }
                 else
                     TypeName.Clear();
+
+                if (_process.ActiveItem.PropertyId != 0)
+                {
+                    _process.SelectedProperties(_process.ActiveItem.PropertyId);
+                    DurabilityAmount.Text = _process.ActiveProperties.Durability.ToString();
+                    AttackAmount.Text = _process.ActiveProperties.Attack.ToString();
+                    DefenceAmount.Text = _process.ActiveProperties.Defence.ToString();
+                    StrengthAmount.Text = _process.ActiveProperties.Strength.ToString();
+                    DexterityAmount.Text = _process.ActiveProperties.Dexterity.ToString();
+                    IntelligenceAmount.Text = _process.ActiveProperties.Inteligence.ToString();
+                }
+                else
+                {
+                    DurabilityAmount.Clear();
+                    AttackAmount.Clear();
+                    DefenceAmount.Clear();
+                    StrengthAmount.Clear();
+                    DexterityAmount.Clear();
+                    IntelligenceAmount.Clear();
+                }
             }
         }
 

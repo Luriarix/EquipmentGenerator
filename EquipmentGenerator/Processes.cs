@@ -152,18 +152,18 @@ namespace EquipmentGenerator
             db.SaveChanges();
         }
 
-        public void AddProperties(int id,int dur, int att, int def, int str, int dex, int inte)
+        public void AddProperties(int id, int dur, int att, int def, int str, int dex, int inte)
         {
             var db = new EquipmentContext();
             db.Add(new Properties
             {
-                PropertyId = id,
                 Durability = dur,
                 Attack = att,
                 Defence = def,
                 Strength = str,
                 Dexterity = dex,
-                Inteligence = inte
+                Inteligence = inte,
+                ItemId = id
             });
             db.SaveChanges();
         }
@@ -219,8 +219,6 @@ namespace EquipmentGenerator
                 AddProperties(ActiveItem.ItemId, dur, att, def, str, dex, inte);
                 ActiveItem.PropertyId = ActiveItem.ItemId;
             }
-
-
             db.SaveChanges();
         }
 
