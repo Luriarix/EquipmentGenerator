@@ -177,12 +177,12 @@ namespace EquipmentGenerator
             if (ActiveType != null)
             {
                 ActiveItem.ItemType = ActiveType;
-                ActiveItem.TypeId = ActiveType.TypeId;
+                ActiveItem.TypeForeignId = ActiveType.TypeId;
             }
             if (ActiveRarety != null)
             {
                 ActiveItem.CommonItemRarety = ActiveRarety;
-                ActiveItem.RaretyId = ActiveRarety.RaretyId; 
+                ActiveItem.RaretyForeignId = ActiveRarety.RaretyId; 
             }
             db.SaveChanges();
         }
@@ -204,7 +204,7 @@ namespace EquipmentGenerator
         public void UpdateProperties(int id, int dur, int att, int def, int str, int dex, int inte)
         {
             var db = new EquipmentContext();
-            if (ActiveItem.PropertyId != 0)
+            if (ActiveItem.PropertyForeignId != 0)
             {
                 ActiveProperties = db.Properties.Where(i => i.PropertyId == id).First();
                 ActiveProperties.Durability = dur;
@@ -217,7 +217,7 @@ namespace EquipmentGenerator
             else
             {
                 AddProperties(ActiveItem.ItemId, dur, att, def, str, dex, inte);
-                ActiveItem.PropertyId = ActiveItem.ItemId;
+                ActiveItem.PropertyForeignId = ActiveItem.ItemId;
             }
             db.SaveChanges();
         }

@@ -97,13 +97,13 @@ namespace EquipmentGeneratorWPF
             {
                 _process.SelectedItem(ItemList.SelectedItem);
                 _process.SelectedType(_process.ActiveItem.ItemId);
-                _process.SelectedRarety(_process.ActiveItem.RaretyId);
-                _process.SelectedProperties(_process.ActiveItem.PropertyId);
+                _process.SelectedRarety(_process.ActiveItem.RaretyForeignId);
+                _process.SelectedProperties(_process.ActiveItem.PropertyForeignId);
                 ItemName.Text = _process.ActiveItem.ItemName;
 
-                if (_process.ActiveItem.RaretyId != 0)
+                if (_process.ActiveItem.RaretyForeignId != 0)
                 {
-                    _process.SelectedRarety(_process.ActiveItem.RaretyId);
+                    _process.SelectedRarety(_process.ActiveItem.RaretyForeignId);
                     RaretyName.Text = _process.ActiveRarety.Rarety;
                     RaretyMax.Text = _process.ActiveRarety.MaxPoints.ToString();
                 }
@@ -113,17 +113,17 @@ namespace EquipmentGeneratorWPF
                     RaretyMax.Clear();
                 }
 
-                if (_process.ActiveItem.TypeId != 0)
+                if (_process.ActiveItem.TypeForeignId != 0)
                 {
-                    _process.SelectedType(_process.ActiveItem.TypeId);
+                    _process.SelectedType(_process.ActiveItem.TypeForeignId);
                     TypeName.Text = _process.ActiveType.Type;
                 }
                 else
                     TypeName.Clear();
 
-                if (_process.ActiveItem.PropertyId != 0)
+                if (_process.ActiveItem.PropertyForeignId != 0)
                 {
-                    _process.SelectedProperties(_process.ActiveItem.PropertyId);
+                    _process.SelectedProperties(_process.ActiveItem.PropertyForeignId);
                     DurabilityAmount.Text = _process.ActiveProperties.Durability.ToString();
                     AttackAmount.Text = _process.ActiveProperties.Attack.ToString();
                     DefenceAmount.Text = _process.ActiveProperties.Defence.ToString();
@@ -221,7 +221,7 @@ namespace EquipmentGeneratorWPF
 
         private void AddPropertiesButton_Click(object sender, RoutedEventArgs e)
         {
-            _process.UpdateProperties(_process.ActiveItem.PropertyId, Int32.Parse(DurabilityAmount.Text), Int32.Parse(AttackAmount.Text), Int32.Parse(DefenceAmount.Text), Int32.Parse(StrengthAmount.Text), Int32.Parse(DexterityAmount.Text), Int32.Parse(IntelligenceAmount.Text));
+            _process.UpdateProperties(_process.ActiveItem.PropertyForeignId, Int32.Parse(DurabilityAmount.Text), Int32.Parse(AttackAmount.Text), Int32.Parse(DefenceAmount.Text), Int32.Parse(StrengthAmount.Text), Int32.Parse(DexterityAmount.Text), Int32.Parse(IntelligenceAmount.Text));
             FillItemList();
         }
 
