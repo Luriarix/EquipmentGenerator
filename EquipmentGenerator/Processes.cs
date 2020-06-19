@@ -165,7 +165,6 @@ namespace EquipmentGenerator
                 Inteligence = inte,
                 ItemId = id
             });
-            db.SaveChanges();
         }
 
 
