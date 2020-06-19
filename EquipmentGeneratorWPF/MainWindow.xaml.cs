@@ -88,6 +88,8 @@ namespace EquipmentGeneratorWPF
                     }
                 }
             }
+            _process.SelectedRarety(null);
+            _process.SelectedType(null);
             FillItemList();
         }
 
@@ -111,6 +113,7 @@ namespace EquipmentGeneratorWPF
                 {
                     RaretyName.Clear();
                     RaretyMax.Clear();
+                    _process.SelectedRarety(null);
                 }
 
                 if (_process.ActiveItem.TypeId != 0)
@@ -119,7 +122,10 @@ namespace EquipmentGeneratorWPF
                     TypeName.Text = _process.ActiveType.Type;
                 }
                 else
+                {
                     TypeName.Clear();
+                    _process.SelectedType(null);
+                }
 
                 if (_process.ActiveItem.PropertyId != 0)
                 {
@@ -174,8 +180,8 @@ namespace EquipmentGeneratorWPF
             if (TypeList.SelectedItem != null)
             {
                 _process.SelectedType(TypeList.SelectedItem);
-                if (_process.ActiveItem.ItemProperty != null)
-                    FillProperties();
+                //if (_process.ActiveItem.ItemProperty != null)
+                //    FillProperties();
                 TypeName.Text = _process.ActiveType.Type;
             }
         }
