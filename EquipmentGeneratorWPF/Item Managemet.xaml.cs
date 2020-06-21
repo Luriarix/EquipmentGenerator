@@ -26,8 +26,7 @@ namespace EquipmentGeneratorWPF
             FillItemList();
             FillRaretyList();
             FillTypeList();
-            _process.CleanUp();
-
+            //_process.CleanUp();
         }
         private Processes _process = new Processes();
 
