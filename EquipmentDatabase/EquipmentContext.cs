@@ -30,13 +30,10 @@ namespace EquipmentDatabase
 
         public string ItemName { get; set; }
 
-        public int TypeId { get; set; }
         public Types ItemType { get; set; }
 
-        public int RaretyId { get; set; }
         public Rareties CommonItemRarety { get; set; }
 
-        public int PropertyId { get; set; }
         public Properties ItemProperty { get; set; }
     }
     public partial class UniqueItem
@@ -80,6 +77,5 @@ namespace EquipmentDatabase
         public int Strength { get; set; }
         public int Dexterity { get; set; }
         public int Inteligence { get; set; }
-        public int ItemId  { get; set; }
     }
 }

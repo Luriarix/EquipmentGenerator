@@ -44,6 +44,7 @@ namespace EquipmentGeneratorWPF
         {
             TypeList.ItemsSource = _process.ReadTypesList();
         }
+
         public void FillProperties()
         {
             DurabilityAmount.Text =  _process.ActiveItem.ItemProperty.Durability.ToString();
@@ -51,6 +52,32 @@ namespace EquipmentGeneratorWPF
             DexterityAmount.Text = _process.ActiveItem.ItemProperty.Dexterity.ToString();
             IntelligenceAmount.Text = _process.ActiveItem.ItemProperty.Inteligence.ToString();
             AttackAmount.Text = _process.ActiveItem.ItemProperty.Attack.ToString();
+            DefenceAmount.Text = _process.ActiveItem.ItemProperty.Defence.ToString();
+        }
+        public void ClearProperties()
+        {
+            DurabilityAmount.Clear();
+            AttackAmount.Clear();
+            DefenceAmount.Clear();
+            StrengthAmount.Clear();
+            DexterityAmount.Clear();
+            IntelligenceAmount.Clear();
+        }
+
+        public void FillItemRarety()
+        {
+            RaretyName.Text = _process.ActiveItem.CommonItemRarety.Rarety;
+            RaretyMax.Text = _process.ActiveItem.CommonItemRarety.MaxPoints.ToString();
+        }
+        public void FillRarety()
+        {
+            RaretyName.Text = _process.ActiveRarety.Rarety;
+            RaretyMax.Text = _process.ActiveRarety.MaxPoints.ToString();
+        }
+        public void ClearRarety()
+        {
+            RaretyName.Clear();
+            RaretyMax.Clear();
         }
 
         private void ItemAdd(object sender, RoutedEventArgs e)
@@ -61,12 +88,13 @@ namespace EquipmentGeneratorWPF
                 _process.AddItem();
             FillItemList();
             ItemName.Clear();
+            //_process.SelectedItem(null);
         }
 
         private void DeleteItem(object sender, RoutedEventArgs e)
         {
             if (ItemList.SelectedItem != null)
-            _process.RemoveItem();
+                _process.RemoveItem();
             FillItemList();
         }
 
@@ -76,15 +104,14 @@ namespace EquipmentGeneratorWPF
             {
                 if (ItemName.Text != _process.ActiveItem.ItemName)
                 {
-                    _process.UpdateItem(_process.ActiveItem.ItemId, ItemName.Text);
-                    FillItemList();
+                    _process.UpdateItem(ItemName.Text);
                     ItemName.Clear();
                 }
                 else
                 {
                     if (_process.ActiveItem.ItemType != _process.ActiveType || _process.ActiveItem.CommonItemRarety != _process.ActiveRarety)
                     {
-                        _process.UpdateItem(_process.ActiveItem.ItemId, _process.ActiveItem.ItemName);
+                        _process.UpdateItem(_process.ActiveItem.ItemName);
                     }
                 }
             }
@@ -98,54 +125,37 @@ namespace EquipmentGeneratorWPF
             if (ItemList.SelectedItem != null)
             {
                 _process.SelectedItem(ItemList.SelectedItem);
-                _process.SelectedType(_process.ActiveItem.ItemId);
-                _process.SelectedRarety(_process.ActiveItem.RaretyId);
-                _process.SelectedProperties(_process.ActiveItem.PropertyId);
                 ItemName.Text = _process.ActiveItem.ItemName;
 
-                if (_process.ActiveItem.RaretyId != 0)
+                if (_process.ActiveItem.CommonItemRarety != null)
                 {
-                    _process.SelectedRarety(_process.ActiveItem.RaretyId);
-                    RaretyName.Text = _process.ActiveRarety.Rarety;
-                    RaretyMax.Text = _process.ActiveRarety.MaxPoints.ToString();
+                    FillItemRarety();
                 }
                 else
                 {
-                    RaretyName.Clear();
-                    RaretyMax.Clear();
-                    _process.SelectedRarety(null);
+                    ClearRarety();
                 }
 
-                if (_process.ActiveItem.TypeId != 0)
+                if (_process.ActiveItem.ItemType != null)
                 {
-                    _process.SelectedType(_process.ActiveItem.TypeId);
-                    TypeName.Text = _process.ActiveType.Type;
+                    TypeName.Text = _process.ActiveItem.ItemType.Type;
                 }
                 else
                 {
                     TypeName.Clear();
-                    _process.SelectedType(null);
                 }
 
-                if (_process.ActiveItem.PropertyId != 0)
+                if (_process.ActiveItem.ItemProperty != null)
                 {
-                    _process.SelectedProperties(_process.ActiveItem.PropertyId);
-                    DurabilityAmount.Text = _process.ActiveProperties.Durability.ToString();
-                    AttackAmount.Text = _process.ActiveProperties.Attack.ToString();
-                    DefenceAmount.Text = _process.ActiveProperties.Defence.ToString();
-                    StrengthAmount.Text = _process.ActiveProperties.Strength.ToString();
-                    DexterityAmount.Text = _process.ActiveProperties.Dexterity.ToString();
-                    IntelligenceAmount.Text = _process.ActiveProperties.Inteligence.ToString();
+                    _process.SelectedProperties(_process.ActiveItem.ItemProperty);
+                    FillProperties();
                 }
                 else
                 {
-                    DurabilityAmount.Clear();
-                    AttackAmount.Clear();
-                    DefenceAmount.Clear();
-                    StrengthAmount.Clear();
-                    DexterityAmount.Clear();
-                    IntelligenceAmount.Clear();
+                    ClearProperties();
                 }
+                _process.SelectedType(null);
+                _process.SelectedRarety(null);
             }
         }
 
@@ -164,15 +174,17 @@ namespace EquipmentGeneratorWPF
         {
             if (TypeList.SelectedItem != null)
             _process.RemoveType();
+            TypeName.Text = "";
             FillTypeList();
         }
 
         private void UpdateType(object sender, RoutedEventArgs e)
         {
-            if (TypeName.Text != "")
+            if (TypeName.Text != "" | TypeName.Text != _process.ActiveType.Type)
             {
-                _process.UpdateType(_process.ActiveType.TypeId, TypeName.Text);
+                _process.UpdateType(TypeName.Text);
             }
+            FillTypeList();
         }
 
         private void TypeList_SelectType(object sender, SelectionChangedEventArgs e)
@@ -180,8 +192,6 @@ namespace EquipmentGeneratorWPF
             if (TypeList.SelectedItem != null)
             {
                 _process.SelectedType(TypeList.SelectedItem);
-                //if (_process.ActiveItem.ItemProperty != null)
-                //    FillProperties();
                 TypeName.Text = _process.ActiveType.Type;
             }
         }
@@ -197,23 +207,31 @@ namespace EquipmentGeneratorWPF
             else
                 _process.AddRareties();
             FillRaretyList();
-            RaretyName.Clear();
-            RaretyMax.Clear();
+            ClearRarety();
         }
 
         private void DeleteRarety(object sender, RoutedEventArgs e)
         {
             if (RaretyList.SelectedItem != null)
             _process.RemoveRarety();
+            ClearRarety();
             FillRaretyList();
         }
 
         private void UpdateRarety(object sender, RoutedEventArgs e)
         {
-            if (RaretyName.Text != "" && RaretyMax.Text != "")
-                _process.UpdateRarety(_process.ActiveRarety.RaretyId, RaretyName.Text, Int32.Parse(RaretyMax.Text));
-            else if (RaretyName.Text != "")
-                _process.UpdateRarety(_process.ActiveRarety.RaretyId, RaretyName.Text, 0);
+            if (RaretyName.Text != _process.ActiveRarety.Rarety && RaretyMax.Text != _process.ActiveRarety.MaxPoints.ToString())
+                _process.UpdateRarety(RaretyName.Text, Int32.Parse(RaretyMax.Text));
+
+            else
+            {
+                if (RaretyName.Text != _process.ActiveRarety.Rarety)
+                    _process.UpdateRarety(RaretyName.Text, _process.ActiveRarety.MaxPoints);
+
+                if (RaretyMax.Text != _process.ActiveRarety.MaxPoints.ToString())
+                    _process.UpdateRarety(_process.ActiveRarety.Rarety, Int32.Parse(RaretyMax.Text));
+            }
+            FillRaretyList();
         }
 
         private void RaretyList_SelectRarety(object sender, SelectionChangedEventArgs e)
@@ -221,8 +239,7 @@ namespace EquipmentGeneratorWPF
             if (RaretyList.SelectedItem != null)
             {
                 _process.SelectedRarety(RaretyList.SelectedItem);
-                RaretyName.Text = _process.ActiveRarety.Rarety;
-                RaretyMax.Text = _process.ActiveRarety.MaxPoints.ToString();
+                FillRarety();
             }
         }
 
@@ -230,8 +247,11 @@ namespace EquipmentGeneratorWPF
 
         private void AddPropertiesButton_Click(object sender, RoutedEventArgs e)
         {
-            _process.UpdateProperties(_process.ActiveItem.PropertyId, Int32.Parse(DurabilityAmount.Text), Int32.Parse(AttackAmount.Text), Int32.Parse(DefenceAmount.Text), Int32.Parse(StrengthAmount.Text), Int32.Parse(DexterityAmount.Text), Int32.Parse(IntelligenceAmount.Text));
+            _process.UpdateProperties(Int32.Parse(DurabilityAmount.Text), Int32.Parse(AttackAmount.Text), Int32.Parse(DefenceAmount.Text), Int32.Parse(StrengthAmount.Text), Int32.Parse(DexterityAmount.Text), Int32.Parse(IntelligenceAmount.Text));
             FillItemList();
+            ClearProperties();
+            ClearRarety();
+            TypeName.Text = "";
         }
 
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)

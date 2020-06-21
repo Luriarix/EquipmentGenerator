@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="EquipmentGeneratorWPF.MainWindow">
+    <Position X="2" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAEAQAACAAAAAEACAQAAAAEEBJGAACgAAAQAAIAAAAQ=</HashCode>
+      <FileName>MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_process" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="EquipmentGenerator.Processes">
+    <Position X="4.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier />
+    <ShowAsAssociation>
+      <Property Name="ActiveItem" />
+      <Property Name="ActiveProperties" />
+      <Property Name="ActiveRarety" />
+      <Property Name="ActiveType" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="EquipmentDatabase.Item">
+    <Position X="9.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier />
+    <ShowAsAssociation>
+      <Property Name="CommonItemRarety" />
+      <Property Name="ItemProperty" />
+      <Property Name="ItemType" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="EquipmentDatabase.Properties" Collapsed="true">
+    <Position X="7" Y="1.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="EquipmentDatabase.Rareties" Collapsed="true">
+    <Position X="12.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="EquipmentDatabase.Types" Collapsed="true">
+    <Position X="6.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
