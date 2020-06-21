@@ -106,5 +106,5 @@
 ##### Middle of sprint 4
 <img src="Sprint 4 Midway Through.png" width = "300"/>
 
-
 ### Class diagrams
+<img src="Class Diagram.png" width = "300"/>

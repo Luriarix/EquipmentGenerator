@@ -15,10 +15,10 @@
     <Position X="4.25" Y="1.75" Width="1.5" />
     <TypeIdentifier />
     <ShowAsAssociation>
+      <Property Name="ActiveItem" />
       <Property Name="ActiveType" />
       <Property Name="ActiveRarety" />
       <Property Name="ActiveProperties" />
-      <Property Name="ActiveItem" />
     </ShowAsAssociation>
   </Class>
   <Class Name="EquipmentDatabase.Item">
