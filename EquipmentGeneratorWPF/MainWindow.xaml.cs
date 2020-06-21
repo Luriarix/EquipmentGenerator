@@ -30,6 +30,7 @@ namespace EquipmentGeneratorWPF
             FillItemList();
             FillRaretyList();
             FillTypeList();
+            //_process.CleanUp();
         }
 
         public void FillItemList()

@@ -57,27 +57,6 @@ namespace EquipmentGenerator
         public List<Item> ReadItemList()
         {
             var db = new EquipmentContext();
-            //var vb = new EquipmentContext();
-
-            //bool verify = false;
-            //foreach (var p in vb.Properties)
-            //{ 
-            //    foreach ( var i in db.Items)
-            //    {
-            //        if (i.ItemProperty != null)
-            //        {
-            //            if (p.PropertyId == i.ItemProperty.PropertyId)
-            //            {
-            //                verify = true;
-            //            }
-            //        }
-            //    }
-            //    if (verify == false)
-            //    {
-            //        db.Properties.Remove(p);
-            //    }
-            //    verify = false;
-            //}
             return db.Items.Include(t => t.ItemType).Include(r => r.CommonItemRarety).Include(p => p.ItemProperty).ToList();
         }
         public List<UniqueItem> ReadUniqueItemList()
@@ -101,6 +80,31 @@ namespace EquipmentGenerator
             return db.Properties.ToList();
         }
 
+        public void CleanUp()
+        {
+            var db = new EquipmentContext();
+            var vb =new EquipmentContext();
+            bool verify = false;
+            foreach (var p in vb.Properties)
+            {
+                foreach (var i in db.Items.Include(p => p.ItemProperty))
+                {
+                    if (i.ItemProperty != null)
+                    {
+                        if (p.PropertyId == i.ItemProperty.PropertyId)
+                        {
+                            verify = true;
+                        }
+                    }
+                }
+                if (verify == false)
+                {
+                    vb.Properties.Remove(p);
+                }
+                verify = false;
+            }
+            vb.SaveChanges();
+        }
 
         private int ItemPropertiesAmount()
         {
