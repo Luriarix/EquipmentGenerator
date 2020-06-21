@@ -20,7 +20,7 @@ namespace EquipmentDatabase
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
-            => options.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=EquipmentGenerator");
+            => options.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=EquipmentGeneratorV2");
     }
 
     public partial class Item

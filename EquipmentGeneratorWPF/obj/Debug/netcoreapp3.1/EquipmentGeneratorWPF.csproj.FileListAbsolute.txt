@@ -106,3 +106,7 @@ E:\work\Git Equipment Generator\EquipmentGeneratorWPF\obj\Debug\netcoreapp3.1\Eq
 E:\work\Git Equipment Generator\EquipmentGeneratorWPF\obj\Debug\netcoreapp3.1\EquipmentGeneratorWPF.csproj.CoreCompileInputs.cache
 E:\work\Git Equipment Generator\EquipmentGeneratorWPF\obj\Debug\netcoreapp3.1\EquipmentGeneratorWPF.csproj.CopyComplete
 E:\work\Git Equipment Generator\EquipmentGeneratorWPF\obj\Debug\netcoreapp3.1\EquipmentGeneratorWPF.genruntimeconfig.cache
+E:\work\Git Equipment Generator\EquipmentGeneratorWPF\obj\Debug\netcoreapp3.1\Item Managemet.g.cs
+E:\work\Git Equipment Generator\EquipmentGeneratorWPF\obj\Debug\netcoreapp3.1\Item Managemet.baml
+E:\work\Git Equipment Generator\EquipmentGeneratorWPF\obj\Debug\netcoreapp3.1\Unique.g.cs
+E:\work\Git Equipment Generator\EquipmentGeneratorWPF\obj\Debug\netcoreapp3.1\Unique.baml

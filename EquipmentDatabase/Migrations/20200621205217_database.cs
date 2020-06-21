@@ -2,10 +2,28 @@
 
 namespace EquipmentDatabase.Migrations
 {
-    public partial class Database : Migration
+    public partial class database : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Properties",
+                columns: table => new
+                {
+                    PropertyId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Durability = table.Column<int>(nullable: false),
+                    Attack = table.Column<int>(nullable: false),
+                    Defence = table.Column<int>(nullable: false),
+                    Strength = table.Column<int>(nullable: false),
+                    Dexterity = table.Column<int>(nullable: false),
+                    Inteligence = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Properties", x => x.PropertyId);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Rarety",
                 columns: table => new
@@ -40,11 +58,9 @@ namespace EquipmentDatabase.Migrations
                     ItemId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ItemName = table.Column<string>(nullable: true),
-                    TypeId = table.Column<int>(nullable: false),
                     ItemTypeTypeId = table.Column<int>(nullable: true),
-                    RaretyId = table.Column<int>(nullable: false),
                     CommonItemRaretyRaretyId = table.Column<int>(nullable: true),
-                    PropertyId = table.Column<int>(nullable: false)
+                    ItemPropertyPropertyId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -56,36 +72,17 @@ namespace EquipmentDatabase.Migrations
                         principalColumn: "RaretyId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
+                        name: "FK_Items_Properties_ItemPropertyPropertyId",
+                        column: x => x.ItemPropertyPropertyId,
+                        principalTable: "Properties",
+                        principalColumn: "PropertyId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
                         name: "FK_Items_Type_ItemTypeTypeId",
                         column: x => x.ItemTypeTypeId,
                         principalTable: "Type",
                         principalColumn: "TypeId",
                         onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Properties",
-                columns: table => new
-                {
-                    PropertyId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Durability = table.Column<int>(nullable: false),
-                    Attack = table.Column<int>(nullable: false),
-                    Defence = table.Column<int>(nullable: false),
-                    Strength = table.Column<int>(nullable: false),
-                    Dexterity = table.Column<int>(nullable: false),
-                    Inteligence = table.Column<int>(nullable: false),
-                    ItemId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Properties", x => x.PropertyId);
-                    table.ForeignKey(
-                        name: "FK_Properties_Items_ItemId",
-                        column: x => x.ItemId,
-                        principalTable: "Items",
-                        principalColumn: "ItemId",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -131,15 +128,14 @@ namespace EquipmentDatabase.Migrations
                 column: "CommonItemRaretyRaretyId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Items_ItemPropertyPropertyId",
+                table: "Items",
+                column: "ItemPropertyPropertyId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Items_ItemTypeTypeId",
                 table: "Items",
                 column: "ItemTypeTypeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Properties_ItemId",
-                table: "Properties",
-                column: "ItemId",
-                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_UniqueItems_UniqueItemPropertyPropertyId",
@@ -160,13 +156,13 @@ namespace EquipmentDatabase.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Items");
+
+            migrationBuilder.DropTable(
                 name: "UniqueItems");
 
             migrationBuilder.DropTable(
                 name: "Properties");
-
-            migrationBuilder.DropTable(
-                name: "Items");
 
             migrationBuilder.DropTable(
                 name: "Rarety");

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Linq;
+using System.Security.Cryptography;
 
 namespace EquipmentGenerator
 {
@@ -22,6 +23,19 @@ namespace EquipmentGenerator
                 SelectedProperties(ActiveItem.ItemProperty);
             }
         }
+
+        public UniqueItem UniqueItems { get; set; }
+        public void SelectUnique(object item)
+        {
+            var db = new EquipmentContext();
+            UniqueItems = db.UniqueItems.Where(u => u == item).Include(t => t.UniqueItemType).Include(r => r.UniqueItemRarety).Include(p => p.UniqueItemProperty).First();
+            if (UniqueItems.UniqueItemProperty != null)
+            {
+                SelectedProperties(UniqueItems.UniqueItemProperty);
+            }
+
+        }
+
 
         public Types ActiveType { get; set; }
         public void SelectedType(object type)
@@ -105,6 +119,32 @@ namespace EquipmentGenerator
             }
             vb.SaveChanges();
         }
+        public void CleanUpUnique()
+        {
+            var db = new EquipmentContext();
+            var vb = new EquipmentContext();
+            bool verify = false;
+            foreach (var p in vb.Properties)
+            {
+                foreach (var i in db.UniqueItems.Include(p => p.UniqueItemProperty))
+                {
+                    if (i.UniqueItemProperty != null)
+                    {
+                        if (p.PropertyId == i.UniqueItemProperty.PropertyId)
+                        {
+                            verify = true;
+                        }
+                    }
+                }
+                if (verify == false)
+                {
+                    vb.Properties.Remove(p);
+                }
+                verify = false;
+            }
+            vb.SaveChanges();
+        }
+
 
         private int ItemPropertiesAmount()
         {
@@ -258,16 +298,13 @@ namespace EquipmentGenerator
         }
 
 
-
-
-
         public void RemoveItem()
         {
             var db = new EquipmentContext();
                 db.Remove(ActiveItem);
 
-            if (ActiveItem.ItemProperty != null)
-                db.Remove(ActiveProperties);
+            //if (ActiveItem.ItemProperty != null)
+            //    db.Remove(ActiveProperties);
             db.SaveChanges();
         }
         public void RemoveType()
@@ -281,6 +318,109 @@ namespace EquipmentGenerator
             var db = new EquipmentContext();
             db.Remove(ActiveRarety);
             db.SaveChanges();
+        }
+
+
+
+        public void RandomItem()
+        {
+            var db = new EquipmentContext();
+            UniqueItems = db.UniqueItems.Where(u => u == UniqueItems).Include(t => t.UniqueItemType).Include(r => r.UniqueItemRarety).Include(p => p.UniqueItemProperty).First();
+            var i = UniqueItems;
+            UniqueItems.UniqueItemType = RandomType();
+            UniqueItems.UniqueItemRarety = RandomRarity();
+            PropertiesDivision();
+            UniqueItems.UniqueItemProperty = ActiveProperties;
+            if (UniqueItems != i)
+                db.SaveChanges();
+        }
+
+        public int Random()
+        {
+            var i = new Random();
+            return i.Next();
+        }
+        private Types RandomType()
+        {
+            var db = new EquipmentContext();
+            var j = db.Type.Count();
+            var a = Random() % j;
+            var i = 0;
+            foreach (var type in db.Type)
+            {
+                if (i == a)
+                {
+                    return type;
+                }
+                i++;
+            }
+            return null;
+        }
+
+        private Rareties RandomRarity()
+        {
+            var db = new EquipmentContext();
+            var j = db.Rarety.Count();
+            var a = Random() % j;
+            var i = 0;
+            foreach (var rarety in db.Rarety)
+            {
+                if (i == a)
+                {
+                    return rarety;                   
+                }
+                i++;
+            }
+            return null;
+        }
+
+        public void PropertiesDivision()
+        {
+            int i = UniqueItems.UniqueItemRarety.MaxPoints;
+            int dur = 0, att = 0, def = 0, str = 0, dex = 0, intel = 0;
+            while (i > 0)
+            {
+                int a = Random() % 6;
+
+                switch (a)
+                {
+                    case 0:
+                        dur++;
+                        break;
+                    case 1:
+                        att++;
+                        break;
+                    case 2:
+                        def++;
+                        break;
+                    case 3:
+                        str++;
+                        break;
+                    case 4:
+                        dex++;
+                        break;
+                    default:
+                        intel++;
+                        break;
+                }
+                i--;
+            }
+            AddUniqueProperties(dur, att, def, str, dex, intel);
+        }
+        public void AddUniqueProperties(int dur, int att, int def, int str, int dex, int inte)
+        {
+            var db = new EquipmentContext();
+            db.Add(new Properties
+            {
+                Durability = dur,
+                Attack = att,
+                Defence = def,
+                Strength = str,
+                Dexterity = dex,
+                Inteligence = inte
+            });
+            db.SaveChanges();
+            SelectedProperties(db.Properties.ToList().Last());
         }
 
     }
